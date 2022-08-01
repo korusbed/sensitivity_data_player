@@ -2,6 +2,13 @@
 # coding: utf-8
 
 
+# ===========================================
+# Author          : Soterya Inc
+# Project         : Korusbed
+# Company         : Soterya Inc
+# Software Module : Sensitivity filter for JSON data player
+# ===========================================
+
 
 import numpy as np
 import json
@@ -11,18 +18,15 @@ import matplotlib.gridspec as gridspec
 
 
 
+# input params
+#-------------------- change parameters based on bed type and positions ------------------------------#
+length = 7
+width = 4
 node_ui_mapping = {1:1, 2:2, 3:3, 4:4, 5:7, 6:8, 7:9, 8:10, 9:13, 10:14, 11:15, 12:16, 13:19, 14:20, 15:21, 16:22, 
                    17:25, 18:26, 19:27, 20:28, 21:31, 22:32, 23:33, 24:34, 25:37, 26:38, 27:39, 28:40}
 
-
-# input parameters which depend on the mattress size
-# length*width = no. of nodes
-length = 7
-width = 4
-
-
 fsr_list = []
-# Opening JSON file
+# Opening JSON file for the recorded session
 f = open('modified_face_left.json')
 # f = open('fake_data_3.json')
 # returns JSON object as a dictionary
@@ -43,7 +47,7 @@ for j in range(1,length*width + 1):
                 l.append(fsr_value)
             node = np.array(l)
             # finding the maximum and minimum fsr values to adjust the sensitivity
-            max_value = np.amax(node) 
+            max_value = np.amax(node)
             min_value = np.amin(node)
             if max_value > max_fsr:
                 max_fsr = max_value
@@ -75,8 +79,3 @@ else:
         #plt.tight_layout() # do not use this!!
         plt.savefig('data_player_images/face_left{}.png'.format(k))
         plt.show()
-
-
-
-
-
